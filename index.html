@@ -30,15 +30,63 @@
     <ul id="daftar-soal"></ul>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // 1. Mapping kategori ke file JSON
+const fileMap = {
+  "bahasa-jawa": "soal/soalbahasajawa.json",
+  "katakana":    "soal/soalkatakana.json"
+};
+
+const select = document.getElementById('kategori');
+const list   = document.getElementById('daftar-soal');
+const loading = document.getElementById('loading');
+
+// 2. Fungsi fetch berdasarkan kategori
+async function fetchSoalByKategori(kategori) {
+  const filePath = fileMap[kategori];
+  if (!filePath) return null;
+
+  loading.style.display = 'block';
+  list.innerHTML = '';
+  try {
+    const res = await fetch(filePath);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return null;
+  } finally {
+    loading.style.display = 'none';
+  }
+}
+
+// 3. Render daftar soal ke UI
+function renderSoal(items) {
+  if (!items) {
+    list.innerHTML = '<li><em>Gagal memuat data.</em></li>';
+    return;
+  }
+  if (items.length === 0) {
+    list.innerHTML = '<li><em>Tidak ada soal.</em></li>';
+    return;
+  }
+  list.innerHTML = items
+    .map(i => `<li><strong>${i.tanya}</strong> → ${i.jawab}</li>`)
+    .join('');
+}
+
+// 4. Event listener
+select.addEventListener('change', async (e) => {
+  const kat = e.target.value;
+  if (!kat) {
+    list.innerHTML = '';
+    return;
+  }
+  const data = await fetchSoalByKategori(kat);
+  renderSoal(data);
+});
+
+
+  </script>
   <!-- Firebase App (wajib) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-
-<!-- Auth (untuk login) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-
-<!-- Firestore (untuk nyimpan data) -->
-<script
-src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-</body>
-</html>

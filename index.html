@@ -1,1 +1,44 @@
-File sedang dalam pengembangan.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <!-- Firebase App (wajib) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+
+<!-- Auth (untuk login) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+
+<!-- Firestore (untuk nyimpan data) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fetch Soal by Kategori</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Soal Quiz Berdasarkan Kategori</h1>
+
+    <label for="kategori">Pilih Kategori:</label>
+    <select id="kategori">
+      <option value="">— pilih —</option>
+      <option value="bahasa-jawa">Bahasa Jawa</option>
+      <option value="katakana">Katakana</option>
+    </select>
+
+    <div id="loading">Memuat…</div>
+    <ul id="daftar-soal"></ul>
+  </div>
+
+  <script src="script.js"></script>
+  <!-- Firebase App (wajib) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+
+<!-- Auth (untuk login) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+
+<!-- Firestore (untuk nyimpan data) -->
+<script
+src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+</body>
+</html>
